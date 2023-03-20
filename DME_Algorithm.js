@@ -1,5 +1,3 @@
-
- 
 // 두 위도, 경도 사이의 거리 
 function calculateDistance(lat1, lon1, lat2, lon2) { 
   var R = 6371; // 지구 반지름 
