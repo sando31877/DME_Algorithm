@@ -1,8 +1,8 @@
-// DME algorithm implementation in JavaScript  
+
  
-// Function to calculate the distance between two points 
+// 두 위도, 경도 사이의 거리 
 function calculateDistance(lat1, lon1, lat2, lon2) { 
-  var R = 6371; // Earth's radius in kilometers 
+  var R = 6371; // 지구 반지름 
   var dLat = toRad(lat2 - lat1); 
   var dLon = toRad(lon2 - lon1); 
   var lat1 = toRad(lat1); 
@@ -12,16 +12,16 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     Math.sin(dLat / 2) * Math.sin(dLat / 2) + 
     Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2); 
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
-  var distance = R * c; // Distance in kilometers 
+  var distance = R * c; // 단위: km
   return distance; 
 }  
  
-// Function to convert degrees to radians 
+// 도-> 라디안 변환
 function toRad(degrees) { 
   return (degrees * Math.PI) / 180; 
 }  
  
-// Function to calculate the DME distance 
+// DME 계산 
 function calculateDMEDistance(latitude, longitude, bearing, dmeDistance) { 
   var lat2 = Math.asin( 
     Math.sin(latitude) * Math.cos(dmeDistance / 3440) + 
@@ -34,17 +34,17 @@ function calculateDMEDistance(latitude, longitude, bearing, dmeDistance) {
       Math.cos(dmeDistance / 3440) - Math.sin(latitude) * Math.sin(lat2) 
     );  
  
-  // Convert latitude and longitude from radians to degrees 
+  // 위도, 경도 라디안으로 변환 
   lat2 = toDegrees(lat2); 
   lon2 = toDegrees(lon2);  
  
-  // Calculate the distance between the two points 
+  // 두 점 거리 계산
   var distance = calculateDistance(latitude, longitude, lat2, lon2);  
  
   return distance; 
 }  
  
-// Function to convert radians to degrees 
+// 라디안-> 도 변환
 function toDegrees(radians) { 
   return (radians * 180) / Math.PI; 
 } 
